@@ -1,0 +1,51 @@
+{% extends "mainapp/base.html" %}
+{% block title %}All Employees{% endblock %}
+{% block content %}
+
+<div class="top-bar">
+  <h1 style="margin:0;">All Employees</h1>
+  <a class="btn" href="{% url 'add' %}">+ Add Employee</a>
+</div>
+
+{% if employees %}
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Designation</th>
+      <th>Salary</th>
+      <th>Address</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for employee in employees %}
+    <tr>
+      <td>
+        {% if employee.picture %}
+          <img src="{{ employee.picture.url }}" class="pic-thumb" alt="{{ employee.name }}">
+        {% else %}
+          <span class="pic-placeholder">N/A</span>
+        {% endif %}
+      </td>
+      <td>{{ employee.name }}</td>
+      <td>{{ employee.designation }}</td>
+      <td>₹{{ employee.salary }}</td>
+      <td>{{ employee.address|truncatewords:8 }}</td>
+      <td class="actions">
+        <a href="{% url 'edit' eid=employee.empid %}">Edit</a>
+        <a href="{% url 'delete' eid=employee.empid %}" class="del">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="card empty-state">
+  <p>No employees yet.</p>
+  <a class="btn" href="{% url 'add' %}">Add your first employee</a>
+</div>
+{% endif %}
+
+{% endblock %}

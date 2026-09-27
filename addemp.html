@@ -1,0 +1,48 @@
+{% extends "mainapp/base.html" %}
+{% block title %}Add Employee{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Add Employee</h1>
+
+  {% if errors %}
+  <div class="errors">
+    <ul>
+      {% for error in errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="field">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" maxlength="100" value="{{ old.name|default:'' }}">
+    </div>
+
+    <div class="field">
+      <label for="designation">Designation</label>
+      <input type="text" id="designation" name="designation" maxlength="100" value="{{ old.designation|default:'' }}">
+    </div>
+
+    <div class="field">
+      <label for="salary">Salary</label>
+      <input type="text" id="salary" name="salary" maxlength="10" value="{{ old.salary|default:'' }}">
+    </div>
+
+    <div class="field">
+      <label for="address">Address</label>
+      <textarea id="address" name="address" rows="4">{{ old.address|default:'' }}</textarea>
+    </div>
+
+    <div class="field">
+      <label for="picture">Profile Picture</label>
+      <input type="file" id="picture" name="pic" accept="image/*">
+    </div>
+
+    <button type="submit" class="btn">Create Employee</button>
+  </form>
+</div>
+{% endblock %}

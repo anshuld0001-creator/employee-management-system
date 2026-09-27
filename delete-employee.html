@@ -1,0 +1,13 @@
+{% extends "mainapp/base.html" %}
+{% block title %}Delete Employee{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>🗑️Delete Employee{{ employee.name }}?</h1>
+  <p>This action cannot be undone.</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn danger">Yes, delete</button>
+    <a href="{% url 'show' %}" class="btn secondary" style="margin-left:10px;">Cancel</a>
+  </form>
+</div>
+{%endblock %}
